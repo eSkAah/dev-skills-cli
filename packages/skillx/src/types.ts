@@ -6,6 +6,7 @@ export interface SkillSpecifier {
   owner: string;
   repo: string;
   ref?: string; // tag, branch, or commit SHA
+  skillName?: string; // monorepo: specific skill within the repo
 }
 
 /** Skill manifest (skillx.json from the skill repo) */

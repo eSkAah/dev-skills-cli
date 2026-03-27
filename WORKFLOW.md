@@ -45,19 +45,19 @@
 
 ### Milestone 2 : Core — résolution et téléchargement
 
-- [ ] **T-003** — GitHub resolver
+- [x] **T-003** — GitHub resolver
   - Parser les specifiers : `user/repo`, `user/repo@v1.0.0`, `user/repo@sha`, `user/repo#branch`
   - Résoudre vers une URL tarball GitHub API
   - Support des repos privés (injection du token dans le header Authorization)
   - Fichiers : `src/core/resolver.ts`
   - Types : `SkillSpecifier { owner, repo, ref?, tag?, sha? }`
 
-- [ ] **T-004** — Auth GitHub (résolution du token)
+- [x] **T-004** — Auth GitHub (résolution du token)
   - Cascade : `SKILLX_GITHUB_TOKEN` → `GITHUB_TOKEN` → `gh auth token` → erreur
   - Fonction `resolveGitHubToken(): Promise<string | null>`
   - Fichiers : `src/utils/github.ts`
 
-- [ ] **T-005** — Downloader (téléchargement + extraction)
+- [x] **T-005** — Downloader (téléchargement + extraction)
   - Télécharger le tarball via GitHub API (avec auth si nécessaire)
   - Extraire dans un dossier temporaire (`os.tmpdir()`)
   - Retourner le chemin du dossier extrait
@@ -236,4 +236,5 @@
 | 2026-03-27 | T-001 terminée | Setup projet Bun+TS dans packages/skillx/, dépendances installées, CLI help fonctionne |
 | 2026-03-27 | T-010, T-011 terminées | Platform interface + Claude Code implementation (detect, install, uninstall, list, validate) |
 | 2026-03-27 | T-006, T-007, T-008, T-009 terminées | Manifest reader, validator, project manifest, lockfile — Milestone 3 complet |
+| 2026-03-27 | T-003, T-004, T-005 terminées | GitHub resolver (specifier parser + download URL), auth (token cascade), downloader (tarball fetch + extract) |
 
