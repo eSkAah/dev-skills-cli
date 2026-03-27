@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## skillx — Development Workflow
+
+**IMPORTANT**: Before starting any development work on the skillx CLI project, ALWAYS read `WORKFLOW.md` first. It contains the task breakdown with current progress status. Update the task status in `WORKFLOW.md` as you work:
+- `[ ]` → `[~]` when starting a task
+- `[~]` → `[x]` when completing a task
+- Add a session entry in the "Journal de session" table at the bottom
+
+The PRD is in `PRD.md`. The skillx CLI source lives in `packages/skillx/` (separate from the existing Vite+React app).
+
+To run the CLI during development: `cd packages/skillx && bun run src/index.ts`
+
 ## Commands
 
 - `npm run dev` — Start Vite dev server with HMR
