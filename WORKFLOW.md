@@ -155,7 +155,7 @@
 
 ### Milestone 8 : Documentation
 
-- [ ] **T-019** — README.md du projet skillx
+- [x] **T-019** — README.md du projet skillx
   - Installation (`bun add -g skillx` / `npx skillx`)
   - Quick start
   - Commandes disponibles
@@ -241,5 +241,6 @@
 | 2026-03-27 | T-013 terminée | Commande uninstall: lockfile lookup, platform uninstall per-platform, manifest cleanup, confirmation prompt avec --force bypass |
 | 2026-03-27 | T-014, T-015 terminées | Commande `list` (table formatée, --verbose lockfile, --platform filter) + commande `auth` (status avec source detection, login via gh CLI) |
 | 2026-03-27 | T-012 terminée | Commande install complète : parse specifier, resolve, download, extract, manifest read, monorepo support, validate, platform install, project manifest + lockfile update, cleanup |
+| 2026-03-27 | T-019 terminée | README.md complet : quick start, installation, commandes (install/uninstall/list/auth), options globales, création de skill package, plateformes supportées, authentification |
 | 2026-03-27 | T-018 terminée | 77 unit tests (bun:test) : resolver (parseSpecifier), manifest (readSkillManifest, getSkillFromMonorepo), validator (validateSkillManifest), lockfile (CRUD), project-manifest (CRUD), args (parseArgs aliases/flags/positionals) |
 
