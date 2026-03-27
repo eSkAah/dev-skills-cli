@@ -106,7 +106,7 @@
 
 ### Milestone 5 : Commandes CLI
 
-- [ ] **T-012** — Commande `install`
+- [x] **T-012** — Commande `install`
   - Flow complet : parse specifier → resolve → download → extract → read manifest → validate → install platform → update project manifest → update lockfile
   - Afficher la progression avec spinners (@clack/prompts)
   - Gérer les erreurs à chaque étape (messages clairs)
@@ -240,4 +240,5 @@
 | 2026-03-27 | T-002, T-016 terminées | CLI routing avec arg parser, command stubs (install/uninstall/list/auth), logger avec picocolors + @clack/prompts |
 | 2026-03-27 | T-013 terminée | Commande uninstall: lockfile lookup, platform uninstall per-platform, manifest cleanup, confirmation prompt avec --force bypass |
 | 2026-03-27 | T-014, T-015 terminées | Commande `list` (table formatée, --verbose lockfile, --platform filter) + commande `auth` (status avec source detection, login via gh CLI) |
+| 2026-03-27 | T-012 terminée | Commande install complète : parse specifier, resolve, download, extract, manifest read, monorepo support, validate, platform install, project manifest + lockfile update, cleanup |
 
