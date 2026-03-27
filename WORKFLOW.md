@@ -66,26 +66,26 @@
 
 ### Milestone 3 : Core — manifests et lockfile
 
-- [ ] **T-006** — Skill manifest reader (lire le skillx.json du skill)
+- [x] **T-006** — Skill manifest reader (lire le skillx.json du skill)
   - Lire et valider le `skillx.json` du skill téléchargé
   - Parser le format single-skill et monorepo
   - Type : `SkillManifest { name, version, description, platforms, claude?, codex?, ... }`
   - Fichiers : `src/core/manifest.ts`
 
-- [ ] **T-007** — Validator (validation du skillx.json)
+- [x] **T-007** — Validator (validation du skillx.json)
   - Valider les champs requis : `name`, `version`, `description`, `platforms`
   - Valider que les chemins référencés existent (skills, agents)
   - Valider les SKILL.md (frontmatter YAML parsable, `name` et `description` présents)
   - Retourner des erreurs claires et actionables
   - Fichiers : `src/core/validator.ts`
 
-- [ ] **T-008** — Project manifest (skillx.json du projet consommateur)
+- [x] **T-008** — Project manifest (skillx.json du projet consommateur)
   - Lire / créer / mettre à jour le `skillx.json` à la racine du projet
   - Ajouter / retirer des entrées dans `skills`
   - Format : `{ skills: { [name]: { source, version, platforms } } }`
   - Fichiers : `src/core/project-manifest.ts`
 
-- [ ] **T-009** — Lockfile (skillx.lock)
+- [x] **T-009** — Lockfile (skillx.lock)
   - Lire / créer / mettre à jour le `skillx.lock`
   - Stocker : source, version, resolved URL, SHA, date, liste des fichiers installés
   - Fichiers : `src/core/lockfile.ts`
@@ -235,4 +235,5 @@
 | 2026-03-27 | PRD rédigé, WORKFLOW créé | Définition du projet, aucun code écrit encore |
 | 2026-03-27 | T-001 terminée | Setup projet Bun+TS dans packages/skillx/, dépendances installées, CLI help fonctionne |
 | 2026-03-27 | T-010, T-011 terminées | Platform interface + Claude Code implementation (detect, install, uninstall, list, validate) |
+| 2026-03-27 | T-006, T-007, T-008, T-009 terminées | Manifest reader, validator, project manifest, lockfile — Milestone 3 complet |
 
