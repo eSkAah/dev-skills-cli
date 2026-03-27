@@ -147,7 +147,7 @@
   - Tester que `bunx skillx` fonctionne
   - Tester que `npx skillx` et `pnpx skillx` fonctionnent
 
-- [ ] **T-018** — Tests
+- [x] **T-018** — Tests
   - Tests unitaires pour : resolver, manifest reader, validator, lockfile
   - Tests d'intégration pour : install flow complet (avec un repo fixture)
   - Créer un repo GitHub fixture public pour les tests
@@ -241,4 +241,5 @@
 | 2026-03-27 | T-013 terminée | Commande uninstall: lockfile lookup, platform uninstall per-platform, manifest cleanup, confirmation prompt avec --force bypass |
 | 2026-03-27 | T-014, T-015 terminées | Commande `list` (table formatée, --verbose lockfile, --platform filter) + commande `auth` (status avec source detection, login via gh CLI) |
 | 2026-03-27 | T-012 terminée | Commande install complète : parse specifier, resolve, download, extract, manifest read, monorepo support, validate, platform install, project manifest + lockfile update, cleanup |
+| 2026-03-27 | T-018 terminée | 77 unit tests (bun:test) : resolver (parseSpecifier), manifest (readSkillManifest, getSkillFromMonorepo), validator (validateSkillManifest), lockfile (CRUD), project-manifest (CRUD), args (parseArgs aliases/flags/positionals) |
 
