@@ -92,11 +92,11 @@
 
 ### Milestone 4 : Platform — Claude Code
 
-- [ ] **T-010** — Platform interface
+- [x] **T-010** — Platform interface
   - Définir l'interface `Platform` (detect, install, uninstall, list, validate)
   - Fichiers : `src/platforms/platform.ts`
 
-- [ ] **T-011** — Claude Code platform implementation
+- [x] **T-011** — Claude Code platform implementation
   - `detect()` : vérifier si `.claude/` existe
   - `install()` : copier les skills dans `.claude/skills/`, les agents dans `.claude/agents/`
   - Gérer les sub-skills (copie récursive des dossiers)
@@ -234,4 +234,5 @@
 |------|-------|-------|
 | 2026-03-27 | PRD rédigé, WORKFLOW créé | Définition du projet, aucun code écrit encore |
 | 2026-03-27 | T-001 terminée | Setup projet Bun+TS dans packages/skillx/, dépendances installées, CLI help fonctionne |
+| 2026-03-27 | T-010, T-011 terminées | Platform interface + Claude Code implementation (detect, install, uninstall, list, validate) |
 
