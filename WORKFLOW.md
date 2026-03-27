@@ -113,7 +113,7 @@
   - Gérer le conflit de nom (skill déjà installé → proposer `--force`)
   - Fichiers : `src/commands/install.ts`
 
-- [ ] **T-013** — Commande `uninstall`
+- [x] **T-013** — Commande `uninstall`
   - Lire le lockfile pour trouver les fichiers installés
   - Appeler `platform.uninstall()`
   - Mettre à jour le project manifest et le lockfile
@@ -238,5 +238,6 @@
 | 2026-03-27 | T-006, T-007, T-008, T-009 terminées | Manifest reader, validator, project manifest, lockfile — Milestone 3 complet |
 | 2026-03-27 | T-003, T-004, T-005 terminées | GitHub resolver (specifier parser + download URL), auth (token cascade), downloader (tarball fetch + extract) |
 | 2026-03-27 | T-002, T-016 terminées | CLI routing avec arg parser, command stubs (install/uninstall/list/auth), logger avec picocolors + @clack/prompts |
+| 2026-03-27 | T-013 terminée | Commande uninstall: lockfile lookup, platform uninstall per-platform, manifest cleanup, confirmation prompt avec --force bypass |
 | 2026-03-27 | T-014, T-015 terminées | Commande `list` (table formatée, --verbose lockfile, --platform filter) + commande `auth` (status avec source detection, login via gh CLI) |
 
