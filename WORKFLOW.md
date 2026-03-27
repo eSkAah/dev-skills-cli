@@ -147,7 +147,7 @@
   - Tester que `bunx skillx` fonctionne
   - Tester que `npx skillx` et `pnpx skillx` fonctionnent
 
-- [ ] **T-018** — Tests
+- [x] **T-018** — Tests
   - Tests unitaires pour : resolver, manifest reader, validator, lockfile
   - Tests d'intégration pour : install flow complet (avec un repo fixture)
   - Créer un repo GitHub fixture public pour les tests
@@ -242,5 +242,6 @@
 | 2026-03-27 | T-014, T-015 terminées | Commande `list` (table formatée, --verbose lockfile, --platform filter) + commande `auth` (status avec source detection, login via gh CLI) |
 | 2026-03-27 | T-012 terminée | Commande install complète : parse specifier, resolve, download, extract, manifest read, monorepo support, validate, platform install, project manifest + lockfile update, cleanup |
 | 2026-03-27 | T-019 terminée | README.md complet : quick start, installation, commandes (install/uninstall/list/auth), options globales, création de skill package, plateformes supportées, authentification |
+| 2026-03-27 | T-018 terminée | 77 unit tests (bun:test) : resolver (parseSpecifier), manifest (readSkillManifest, getSkillFromMonorepo), validator (validateSkillManifest), lockfile (CRUD), project-manifest (CRUD), args (parseArgs aliases/flags/positionals) |
 | 2026-03-27 | T-017 terminée | Build setup: shebang node, bun build --target node produit dist/index.js, typecheck clean, integration vérifiée entre tous les modules, .gitignore ajouté |
 
