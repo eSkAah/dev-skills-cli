@@ -36,7 +36,7 @@
   - Structure de dossiers : `src/`, `src/commands/`, `src/core/`, `src/platforms/`, `src/utils/`
   - Fichier : `src/index.ts` (entry point vide)
 
-- [ ] **T-002** — CLI entry point + routing des commandes
+- [x] **T-002** — CLI entry point + routing des commandes
   - Parser les arguments (Bun.argv ou lib légère)
   - Router vers les commandes : `install`, `uninstall`, `list`, `auth`
   - Gestion de `--help`, `--version`
@@ -133,7 +133,7 @@
 
 ### Milestone 6 : Logging et UX
 
-- [ ] **T-016** — Logger et formatage de sortie
+- [x] **T-016** — Logger et formatage de sortie
   - Wrapper autour de `@clack/prompts` pour spinners, succès, erreurs, warnings
   - Couleurs cohérentes : vert (succès), rouge (erreur), jaune (warning), bleu (info)
   - Mode `--quiet` (sortie minimale) et `--verbose` (sortie détaillée)
@@ -237,4 +237,5 @@
 | 2026-03-27 | T-010, T-011 terminées | Platform interface + Claude Code implementation (detect, install, uninstall, list, validate) |
 | 2026-03-27 | T-006, T-007, T-008, T-009 terminées | Manifest reader, validator, project manifest, lockfile — Milestone 3 complet |
 | 2026-03-27 | T-003, T-004, T-005 terminées | GitHub resolver (specifier parser + download URL), auth (token cascade), downloader (tarball fetch + extract) |
+| 2026-03-27 | T-002, T-016 terminées | CLI routing avec arg parser, command stubs (install/uninstall/list/auth), logger avec picocolors + @clack/prompts |
 
