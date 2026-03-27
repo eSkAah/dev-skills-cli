@@ -141,7 +141,7 @@
 
 ### Milestone 7 : Build et distribution
 
-- [ ] **T-017** — Build setup
+- [x] **T-017** — Build setup
   - Configurer `bun build` pour produire un single executable
   - Script `build` dans package.json
   - Tester que `bunx skillx` fonctionne
@@ -241,4 +241,5 @@
 | 2026-03-27 | T-013 terminée | Commande uninstall: lockfile lookup, platform uninstall per-platform, manifest cleanup, confirmation prompt avec --force bypass |
 | 2026-03-27 | T-014, T-015 terminées | Commande `list` (table formatée, --verbose lockfile, --platform filter) + commande `auth` (status avec source detection, login via gh CLI) |
 | 2026-03-27 | T-012 terminée | Commande install complète : parse specifier, resolve, download, extract, manifest read, monorepo support, validate, platform install, project manifest + lockfile update, cleanup |
+| 2026-03-27 | T-017 terminée | Build setup: shebang node, bun build --target node produit dist/index.js, typecheck clean, integration vérifiée entre tous les modules, .gitignore ajouté |
 

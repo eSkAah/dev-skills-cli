@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
 import { parseArgs } from "./utils/args.js";
 import { logger, setVerbose, setQuiet } from "./utils/logger.js";
