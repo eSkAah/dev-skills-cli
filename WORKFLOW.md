@@ -120,13 +120,13 @@
   - Erreur claire si le skill n'est pas installé
   - Fichiers : `src/commands/uninstall.ts`
 
-- [ ] **T-014** — Commande `list`
+- [x] **T-014** — Commande `list`
   - Lire le project manifest (`skillx.json`)
   - Afficher : nom, version, source, plateformes
   - Option `--verbose` : ajouter les fichiers installés (depuis lockfile)
   - Fichiers : `src/commands/list.ts`
 
-- [ ] **T-015** — Commande `auth`
+- [x] **T-015** — Commande `auth`
   - `skillx auth` : afficher le statut d'authentification (token trouvé ? source ?)
   - `skillx auth login` : vérifier si `gh` est installé, lancer `gh auth login`
   - Fichiers : `src/commands/auth.ts`
@@ -239,5 +239,6 @@
 | 2026-03-27 | T-003, T-004, T-005 terminées | GitHub resolver (specifier parser + download URL), auth (token cascade), downloader (tarball fetch + extract) |
 | 2026-03-27 | T-002, T-016 terminées | CLI routing avec arg parser, command stubs (install/uninstall/list/auth), logger avec picocolors + @clack/prompts |
 | 2026-03-27 | T-013 terminée | Commande uninstall: lockfile lookup, platform uninstall per-platform, manifest cleanup, confirmation prompt avec --force bypass |
+| 2026-03-27 | T-014, T-015 terminées | Commande `list` (table formatée, --verbose lockfile, --platform filter) + commande `auth` (status avec source detection, login via gh CLI) |
 | 2026-03-27 | T-012 terminée | Commande install complète : parse specifier, resolve, download, extract, manifest read, monorepo support, validate, platform install, project manifest + lockfile update, cleanup |
 
