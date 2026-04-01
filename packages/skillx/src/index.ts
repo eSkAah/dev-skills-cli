@@ -7,6 +7,7 @@ import { uninstallCommand } from "./commands/uninstall.js";
 import { listCommand } from "./commands/list.js";
 import { searchCommand } from "./commands/search.js";
 import { authCommand } from "./commands/auth.js";
+import { updateCommand } from "./commands/update.js";
 
 const VERSION = "0.1.0";
 
@@ -18,6 +19,7 @@ const HELP_TEXT = `
   Commands:
     install, i <source>     Install a skill from GitHub
     uninstall, un <name>    Uninstall a skill
+    update, up [name]       Update installed skills
     list, ls                List installed skills
     search, s <query>       Search for skills on GitHub
     auth                    Manage GitHub authentication
@@ -29,11 +31,13 @@ const HELP_TEXT = `
     --verbose               Show detailed output
     --quiet                 Minimal output
     --force                 Force operation (overwrite, etc.)
+    --check                 Dry run (update command only)
 
   Examples:
     skillx install user/repo
     skillx install user/repo@v1.0.0
     skillx i user/repo --platform claude
+    skillx update --check
     skillx list --verbose
     skillx search blazor
     skillx s "react testing" --platform claude
@@ -78,6 +82,10 @@ async function main(): Promise<void> {
 
     case "auth":
       await authCommand(args);
+      break;
+
+    case "update":
+      await updateCommand(args);
       break;
 
     default:
