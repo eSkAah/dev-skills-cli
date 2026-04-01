@@ -7,6 +7,7 @@ import type {
   ValidationResult,
 } from "../types.js";
 import { type Platform, registerPlatform } from "./platform.js";
+import { injectClaudeMd, removeClaudeMd } from "../core/claudemd.js";
 
 /** Directory names used by Claude Code */
 const CLAUDE_DIR = ".claude";
@@ -252,6 +253,16 @@ const claudePlatform: Platform = {
       }
     }
 
+    // Inject CLAUDE.md entries if declared in manifest
+    if (claudeConfig.claudemd?.entries && claudeConfig.claudemd.entries.length > 0) {
+      const claudeMdFiles = await injectClaudeMd(
+        projectRoot,
+        skillManifest.name,
+        claudeConfig.claudemd.entries,
+      );
+      installedFiles.push(...claudeMdFiles);
+    }
+
     return { platform: "claude", files: installedFiles };
   },
 
@@ -260,16 +271,21 @@ const claudePlatform: Platform = {
    *
    * Deletes each file/directory listed in `installedFiles` (paths relative
    * to projectRoot), then cleans up any empty parent directories up to
-   * the `.claude/` boundary.
+   * the `.claude/` boundary. Also removes any CLAUDE.md injected sections.
    */
   async uninstall(
-    _skillName: string,
+    skillName: string,
     installedFiles: string[],
     projectRoot: string,
   ): Promise<void> {
     const claudeRoot = join(projectRoot, CLAUDE_DIR);
 
     for (const filePath of installedFiles) {
+      // Skip CLAUDE.md — it is handled separately by removeClaudeMd
+      if (filePath === "CLAUDE.md") {
+        continue;
+      }
+
       const fullPath = join(projectRoot, filePath);
 
       if (await pathExists(fullPath)) {
@@ -282,6 +298,9 @@ const claudePlatform: Platform = {
         await removeEmptyParents(dirname(fullPath), claudeRoot);
       }
     }
+
+    // Remove any CLAUDE.md injected sections for this skill
+    await removeClaudeMd(projectRoot, skillName);
   },
 
   /**
