@@ -189,7 +189,7 @@
   - Fetch le `skillx.json` de chaque résultat pour enrichir l'affichage
   - Fichiers : `src/commands/search.ts`
 
-- [ ] **T-024** — Flag `--platform` sur install/uninstall
+- [x] **T-024** — Flag `--platform` sur install/uninstall
   - Filtrer les plateformes lors de l'installation
   - Auto-détection si `--platform` n'est pas spécifié
 
@@ -249,4 +249,5 @@
 | 2026-03-27 | T-022 terminée | Commande `update` : check SHA lockfile vs latest GitHub, `--check` dry run, single skill ou all skills, réutilise le flow install (download, extract, validate, install, manifest+lockfile update), alias `up`, flag `--check` ajouté au parser |
 | 2026-03-27 | T-020 terminée | Codex platform implementation: detect (.codex/ or AGENTS.md), install (section/append/replace strategies with markers in AGENTS.md + TOML agent copy), uninstall (section removal + cleanup), list (marker scanning), validate (instructions + agents files). Updated platform.ts lazy import. All 77 existing tests pass, typecheck clean. |
 | 2026-03-27 | T-023 terminée | Commande `search` : GitHub API search (topic:skillx-skill), parallel skillx.json fetch avec timeout 2s, formatted output (name, description, platforms, stars), --platform filter, alias `s`. Wired into CLI router + help text. Typecheck clean, 97 tests passent. |
+| 2026-03-27 | T-024 terminée | Flag `--platform` on install/uninstall/update: specific platform validation (error if unsupported), `--platform all` explicit, auto-detection via `detectPlatforms()` with intersection against manifest, fresh project fallback. Uninstall supports partial removal (keeps skill for remaining platforms, updates lockfile/manifest accordingly). Update command also respects `--platform` flag. Typecheck clean, 97 tests pass. |
 

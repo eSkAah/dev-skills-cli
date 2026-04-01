@@ -2,8 +2,8 @@ import * as clack from "@clack/prompts";
 import type { PlatformName } from "../types.js";
 import type { ParsedArgs } from "../utils/args.js";
 import { logger } from "../utils/logger.js";
-import { getLockEntry, removeLockEntry } from "../core/lockfile.js";
-import { removeSkill } from "../core/project-manifest.js";
+import { getLockEntry, removeLockEntry, addLockEntry } from "../core/lockfile.js";
+import { removeSkill, addSkill, readProjectManifest } from "../core/project-manifest.js";
 import { getPlatform } from "../platforms/platform.js";
 
 export async function uninstallCommand(args: ParsedArgs): Promise<void> {
@@ -75,24 +75,60 @@ export async function uninstallCommand(args: ParsedArgs): Promise<void> {
       );
     }
 
-    // 5. Remove the lock entry
-    await removeLockEntry(projectRoot, skillName);
+    // 5. Determine if this is a partial or full uninstall
+    const remainingPlatforms = allPlatforms.filter(
+      (p) => !targetPlatforms.includes(p),
+    );
+    const isPartialUninstall = remainingPlatforms.length > 0;
 
-    // 6. Remove the skill from the project manifest
-    try {
-      await removeSkill(projectRoot, skillName);
-    } catch {
-      // Skill may not be in the project manifest (e.g. partial install)
-      // — ignore gracefully
-      logger.debug(
-        `Skill '${skillName}' was not found in the project manifest (already removed or never added).`,
-      );
+    if (isPartialUninstall) {
+      // Partial uninstall: update lockfile to remove only the uninstalled platforms
+      const updatedFiles = { ...lockEntry.files };
+      for (const p of targetPlatforms) {
+        delete updatedFiles[p];
+      }
+      await addLockEntry(projectRoot, skillName, {
+        ...lockEntry,
+        files: updatedFiles,
+      });
+
+      // Update the project manifest to reflect remaining platforms
+      const projectManifest = await readProjectManifest(projectRoot);
+      const existingEntry = projectManifest.skills[skillName];
+      if (existingEntry) {
+        await addSkill(projectRoot, {
+          name: skillName,
+          source: existingEntry.source,
+          version: existingEntry.version,
+          platforms: remainingPlatforms,
+        });
+      }
+    } else {
+      // Full uninstall: remove the lockfile entry entirely
+      await removeLockEntry(projectRoot, skillName);
+
+      // Remove the skill from the project manifest
+      try {
+        await removeSkill(projectRoot, skillName);
+      } catch {
+        // Skill may not be in the project manifest (e.g. partial install)
+        // — ignore gracefully
+        logger.debug(
+          `Skill '${skillName}' was not found in the project manifest (already removed or never added).`,
+        );
+      }
     }
 
     spinner.stop(`Uninstalled '${skillName}' successfully.`);
-    logger.success(
-      `Skill '${skillName}' has been removed from ${targetPlatforms.join(", ")}.`,
-    );
+    if (isPartialUninstall) {
+      logger.success(
+        `Skill '${skillName}' has been removed from ${targetPlatforms.join(", ")}. Still installed for: ${remainingPlatforms.join(", ")}`,
+      );
+    } else {
+      logger.success(
+        `Skill '${skillName}' has been removed from ${targetPlatforms.join(", ")}.`,
+      );
+    }
   } catch (err) {
     spinner.stop("Uninstall failed.");
     logger.error(
