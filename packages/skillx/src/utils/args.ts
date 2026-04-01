@@ -20,6 +20,7 @@ const COMMAND_ALIASES: Record<string, string> = {
   i: "install",
   un: "uninstall",
   ls: "list",
+  s: "search",
   up: "update",
 };
 

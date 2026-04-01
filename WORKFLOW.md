@@ -184,7 +184,7 @@
   - Option `--check` (dry run)
   - Fichiers : `src/commands/update.ts`
 
-- [ ] **T-023** — Commande `search`
+- [x] **T-023** — Commande `search`
   - GitHub API Search : `topic:skillx-skill <query>`
   - Fetch le `skillx.json` de chaque résultat pour enrichir l'affichage
   - Fichiers : `src/commands/search.ts`
@@ -247,4 +247,5 @@
 | 2026-03-27 | **PHASE 1 COMPLETE** | 19 tasks, 10 PRs mergées dans develop, 77 tests passent, build 0.70MB fonctionne. Prêt pour Phase 2 (Codex, update, search) |
 | 2026-03-27 | T-021 terminée | CLAUDE.md injection: `src/core/claudemd.ts` (injectClaudeMd + removeClaudeMd), intégration dans `claude.ts` (install/uninstall), 20 tests unitaires, idempotent, multi-skill coexistence, empty section cleanup |
 | 2026-03-27 | T-022 terminée | Commande `update` : check SHA lockfile vs latest GitHub, `--check` dry run, single skill ou all skills, réutilise le flow install (download, extract, validate, install, manifest+lockfile update), alias `up`, flag `--check` ajouté au parser |
+| 2026-03-27 | T-023 terminée | Commande `search` : GitHub API search (topic:skillx-skill), parallel skillx.json fetch avec timeout 2s, formatted output (name, description, platforms, stars), --platform filter, alias `s`. Wired into CLI router + help text. Typecheck clean, 97 tests passent. |
 
