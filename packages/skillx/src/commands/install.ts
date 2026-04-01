@@ -8,7 +8,7 @@ import { readSkillManifest, getSkillFromMonorepo } from "../core/manifest.js";
 import { validateSkillManifest } from "../core/validator.js";
 import { readProjectManifest, addSkill } from "../core/project-manifest.js";
 import { addLockEntry } from "../core/lockfile.js";
-import { getPlatform } from "../platforms/platform.js";
+import { getPlatform, detectPlatforms } from "../platforms/platform.js";
 
 export async function installCommand(args: ParsedArgs): Promise<void> {
   const specifier = args.positionals[0];
@@ -155,10 +155,38 @@ export async function installCommand(args: ParsedArgs): Promise<void> {
     // 10. Determine target platforms
     let targetPlatforms: PlatformName[];
     if (args.flags.platform && args.flags.platform !== "all") {
-      targetPlatforms = [args.flags.platform as PlatformName];
-    } else {
+      // User specified a single platform — validate it's supported by the skill
+      const requested = args.flags.platform as PlatformName;
+      if (!manifest.platforms.includes(requested)) {
+        logger.error(
+          `Skill "${manifest.name}" does not support platform "${requested}". Supported platforms: ${manifest.platforms.join(", ")}`,
+        );
+        process.exit(1);
+      }
+      targetPlatforms = [requested];
+    } else if (args.flags.platform === "all") {
+      // Explicit --platform all → use all platforms from the manifest
       targetPlatforms = manifest.platforms;
+    } else {
+      // No flag → auto-detect active platforms in the project
+      const detected = await detectPlatforms(projectRoot);
+      if (detected.length > 0) {
+        // Intersect detected platforms with manifest's supported platforms
+        targetPlatforms = detected.filter((p) => manifest.platforms.includes(p));
+        if (targetPlatforms.length === 0) {
+          // Detected platforms don't overlap with what the skill supports
+          logger.warn(
+            `Detected platforms (${detected.join(", ")}) are not supported by "${manifest.name}". Falling back to all supported platforms: ${manifest.platforms.join(", ")}`,
+          );
+          targetPlatforms = manifest.platforms;
+        }
+      } else {
+        // No platforms detected (fresh project) → fall back to all from manifest
+        targetPlatforms = manifest.platforms;
+      }
     }
+
+    logger.info(`Installing for platforms: ${targetPlatforms.join(", ")}`);
 
     // 11. Install for each platform
     const allInstalledFiles: InstalledFiles[] = [];

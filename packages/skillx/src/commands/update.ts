@@ -9,7 +9,7 @@ import { resolveGitHubToken } from "../utils/github.js";
 import { downloadAndExtract, cleanup } from "../core/downloader.js";
 import { readSkillManifest, getSkillFromMonorepo } from "../core/manifest.js";
 import { validateSkillManifest } from "../core/validator.js";
-import { getPlatform } from "../platforms/platform.js";
+import { getPlatform, detectPlatforms } from "../platforms/platform.js";
 
 /**
  * Information about a skill that has an available update.
@@ -38,10 +38,10 @@ export async function updateCommand(args: ParsedArgs): Promise<void> {
 
   if (skillName) {
     // --- Single skill update ---
-    await updateSingleSkill(skillName, projectRoot, isDryRun);
+    await updateSingleSkill(skillName, projectRoot, isDryRun, args);
   } else {
     // --- Update all skills ---
-    await updateAllSkills(projectRoot, isDryRun);
+    await updateAllSkills(projectRoot, isDryRun, args);
   }
 }
 
@@ -52,6 +52,7 @@ async function updateSingleSkill(
   skillName: string,
   projectRoot: string,
   isDryRun: boolean,
+  args: ParsedArgs,
 ): Promise<void> {
   // 1. Check the lockfile for the skill
   const lockEntry = await getLockEntry(projectRoot, skillName);
@@ -93,7 +94,7 @@ async function updateSingleSkill(
   }
 
   // 4. Apply the update
-  await applyUpdate(candidate, projectRoot);
+  await applyUpdate(candidate, projectRoot, args);
   logger.success(`Updated 1 skill`);
 }
 
@@ -103,6 +104,7 @@ async function updateSingleSkill(
 async function updateAllSkills(
   projectRoot: string,
   isDryRun: boolean,
+  args: ParsedArgs,
 ): Promise<void> {
   // 1. Read the project manifest to get the list of installed skills
   const manifest = await readProjectManifest(projectRoot);
@@ -174,7 +176,7 @@ async function updateAllSkills(
 
   for (const candidate of candidates) {
     try {
-      await applyUpdate(candidate, projectRoot);
+      await applyUpdate(candidate, projectRoot, args);
       updatedCount++;
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
@@ -238,6 +240,7 @@ async function checkForUpdate(
 async function applyUpdate(
   candidate: UpdateCandidate,
   projectRoot: string,
+  args: ParsedArgs,
 ): Promise<void> {
   const { name, source, latestUrl, latestSha, token } = candidate;
 
@@ -292,8 +295,30 @@ async function applyUpdate(
       );
     }
 
-    // 5. Determine target platforms
-    const targetPlatforms: PlatformName[] = manifest.platforms;
+    // 5. Determine target platforms (respects --platform flag)
+    let targetPlatforms: PlatformName[];
+    if (args.flags.platform && args.flags.platform !== "all") {
+      const requested = args.flags.platform as PlatformName;
+      if (!manifest.platforms.includes(requested)) {
+        throw new Error(
+          `Skill "${manifest.name}" does not support platform "${requested}". Supported platforms: ${manifest.platforms.join(", ")}`,
+        );
+      }
+      targetPlatforms = [requested];
+    } else if (args.flags.platform === "all") {
+      targetPlatforms = manifest.platforms;
+    } else {
+      // No flag → auto-detect, same logic as install
+      const detected = await detectPlatforms(projectRoot);
+      if (detected.length > 0) {
+        targetPlatforms = detected.filter((p) => manifest.platforms.includes(p));
+        if (targetPlatforms.length === 0) {
+          targetPlatforms = manifest.platforms;
+        }
+      } else {
+        targetPlatforms = manifest.platforms;
+      }
+    }
 
     // 6. Install for each platform (overwrites existing files)
     const allInstalledFiles: InstalledFiles[] = [];
