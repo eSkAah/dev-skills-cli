@@ -9,6 +9,7 @@ export interface ParsedArgs {
     verbose: boolean;
     quiet: boolean;
     force: boolean;
+    check: boolean;
     help: boolean;
     version: boolean;
   };
@@ -19,6 +20,7 @@ const COMMAND_ALIASES: Record<string, string> = {
   i: "install",
   un: "uninstall",
   ls: "list",
+  up: "update",
 };
 
 /**
@@ -30,6 +32,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
     verbose: false,
     quiet: false,
     force: false,
+    check: false,
     help: false,
     version: false,
   };
@@ -63,6 +66,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
 
     if (arg === "--force") {
       flags.force = true;
+      i++;
+      continue;
+    }
+
+    if (arg === "--check") {
+      flags.check = true;
       i++;
       continue;
     }

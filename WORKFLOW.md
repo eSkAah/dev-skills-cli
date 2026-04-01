@@ -172,13 +172,13 @@
   - `uninstall()` : retirer la section du AGENTS.md + supprimer agents TOML
   - Fichiers : `src/platforms/codex.ts`
 
-- [ ] **T-021** — CLAUDE.md injection
+- [x] **T-021** — CLAUDE.md injection
   - Lire les entrées `claudemd` du manifest
   - Injecter les sections dans le bon emplacement de CLAUDE.md
   - Gérer la désinstallation (retirer les blocs `<!-- skillx:name -->`)
-  - Fichiers : `src/platforms/claude.ts` (extension)
+  - Fichiers : `src/core/claudemd.ts` (new), `src/platforms/claude.ts` (extension)
 
-- [ ] **T-022** — Commande `update`
+- [x] **T-022** — Commande `update`
   - Comparer le SHA lockfile vs latest sur GitHub
   - Réinstaller si différent
   - Option `--check` (dry run)
@@ -245,6 +245,7 @@
 | 2026-03-27 | T-018 terminée | 77 unit tests (bun:test) : resolver (parseSpecifier), manifest (readSkillManifest, getSkillFromMonorepo), validator (validateSkillManifest), lockfile (CRUD), project-manifest (CRUD), args (parseArgs aliases/flags/positionals) |
 | 2026-03-27 | T-017 terminée | Build setup: shebang node, bun build --target node produit dist/index.js, typecheck clean, integration vérifiée entre tous les modules, .gitignore ajouté |
 | 2026-03-27 | **PHASE 1 COMPLETE** | 19 tasks, 10 PRs mergées dans develop, 77 tests passent, build 0.70MB fonctionne. Prêt pour Phase 2 (Codex, update, search) |
+| 2026-03-27 | T-021 terminée | CLAUDE.md injection: `src/core/claudemd.ts` (injectClaudeMd + removeClaudeMd), intégration dans `claude.ts` (install/uninstall), 20 tests unitaires, idempotent, multi-skill coexistence, empty section cleanup |
+| 2026-03-27 | T-022 terminée | Commande `update` : check SHA lockfile vs latest GitHub, `--check` dry run, single skill ou all skills, réutilise le flow install (download, extract, validate, install, manifest+lockfile update), alias `up`, flag `--check` ajouté au parser |
 | 2026-03-27 | T-020 terminée | Codex platform implementation: detect (.codex/ or AGENTS.md), install (section/append/replace strategies with markers in AGENTS.md + TOML agent copy), uninstall (section removal + cleanup), list (marker scanning), validate (instructions + agents files). Updated platform.ts lazy import. All 77 existing tests pass, typecheck clean. |
-| 2026-03-27 | T-023 terminée | Commande `search` : GitHub API search (topic:skillx-skill), parallel skillx.json fetch avec timeout 2s, formatted output (name, description, platforms, stars), --platform filter, alias `s`. Wired into CLI router + help text. Typecheck clean, 77 tests passent. |
 
