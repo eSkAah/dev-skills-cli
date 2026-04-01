@@ -166,7 +166,7 @@
 
 ## Phase 2 — Multi-plateforme (v0.2.0) — Codex
 
-- [ ] **T-020** — Codex platform implementation
+- [x] **T-020** — Codex platform implementation
   - `detect()` : vérifier si `.codex/` ou `AGENTS.md` existe
   - `install()` : injecter dans AGENTS.md (stratégie section) + copier agents TOML
   - `uninstall()` : retirer la section du AGENTS.md + supprimer agents TOML
@@ -247,5 +247,6 @@
 | 2026-03-27 | **PHASE 1 COMPLETE** | 19 tasks, 10 PRs mergées dans develop, 77 tests passent, build 0.70MB fonctionne. Prêt pour Phase 2 (Codex, update, search) |
 | 2026-03-27 | T-021 terminée | CLAUDE.md injection: `src/core/claudemd.ts` (injectClaudeMd + removeClaudeMd), intégration dans `claude.ts` (install/uninstall), 20 tests unitaires, idempotent, multi-skill coexistence, empty section cleanup |
 | 2026-03-27 | T-022 terminée | Commande `update` : check SHA lockfile vs latest GitHub, `--check` dry run, single skill ou all skills, réutilise le flow install (download, extract, validate, install, manifest+lockfile update), alias `up`, flag `--check` ajouté au parser |
+| 2026-03-27 | T-020 terminée | Codex platform implementation: detect (.codex/ or AGENTS.md), install (section/append/replace strategies with markers in AGENTS.md + TOML agent copy), uninstall (section removal + cleanup), list (marker scanning), validate (instructions + agents files). Updated platform.ts lazy import. All 77 existing tests pass, typecheck clean. |
 | 2026-03-27 | T-023 terminée | Commande `search` : GitHub API search (topic:skillx-skill), parallel skillx.json fetch avec timeout 2s, formatted output (name, description, platforms, stars), --platform filter, alias `s`. Wired into CLI router + help text. Typecheck clean, 97 tests passent. |
 
