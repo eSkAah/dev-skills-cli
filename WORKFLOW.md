@@ -172,11 +172,11 @@
   - `uninstall()` : retirer la section du AGENTS.md + supprimer agents TOML
   - Fichiers : `src/platforms/codex.ts`
 
-- [ ] **T-021** — CLAUDE.md injection
+- [x] **T-021** — CLAUDE.md injection
   - Lire les entrées `claudemd` du manifest
   - Injecter les sections dans le bon emplacement de CLAUDE.md
   - Gérer la désinstallation (retirer les blocs `<!-- skillx:name -->`)
-  - Fichiers : `src/platforms/claude.ts` (extension)
+  - Fichiers : `src/core/claudemd.ts` (new), `src/platforms/claude.ts` (extension)
 
 - [ ] **T-022** — Commande `update`
   - Comparer le SHA lockfile vs latest sur GitHub
@@ -244,4 +244,6 @@
 | 2026-03-27 | T-019 terminée | README.md complet : quick start, installation, commandes (install/uninstall/list/auth), options globales, création de skill package, plateformes supportées, authentification |
 | 2026-03-27 | T-018 terminée | 77 unit tests (bun:test) : resolver (parseSpecifier), manifest (readSkillManifest, getSkillFromMonorepo), validator (validateSkillManifest), lockfile (CRUD), project-manifest (CRUD), args (parseArgs aliases/flags/positionals) |
 | 2026-03-27 | T-017 terminée | Build setup: shebang node, bun build --target node produit dist/index.js, typecheck clean, integration vérifiée entre tous les modules, .gitignore ajouté |
+| 2026-03-27 | **PHASE 1 COMPLETE** | 19 tasks, 10 PRs mergées dans develop, 77 tests passent, build 0.70MB fonctionne. Prêt pour Phase 2 (Codex, update, search) |
+| 2026-03-27 | T-021 terminée | CLAUDE.md injection: `src/core/claudemd.ts` (injectClaudeMd + removeClaudeMd), intégration dans `claude.ts` (install/uninstall), 20 tests unitaires, idempotent, multi-skill coexistence, empty section cleanup |
 
