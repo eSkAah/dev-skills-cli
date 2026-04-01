@@ -71,10 +71,8 @@ export async function getPlatform(name: PlatformName): Promise<Platform> {
         await import("./claude.js");
         break;
       case "codex":
-        // Codex platform is planned for Phase 2 (v0.2.0)
-        throw new Error(
-          `Platform "${name}" is not yet implemented. It is planned for v0.2.0.`,
-        );
+        await import("./codex.js");
+        break;
       default:
         throw new Error(
           `Unknown platform: "${name}". Supported platforms: claude, codex`,
