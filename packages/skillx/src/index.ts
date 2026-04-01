@@ -5,6 +5,7 @@ import { logger, setVerbose, setQuiet } from "./utils/logger.js";
 import { installCommand } from "./commands/install.js";
 import { uninstallCommand } from "./commands/uninstall.js";
 import { listCommand } from "./commands/list.js";
+import { searchCommand } from "./commands/search.js";
 import { authCommand } from "./commands/auth.js";
 
 const VERSION = "0.1.0";
@@ -18,6 +19,7 @@ const HELP_TEXT = `
     install, i <source>     Install a skill from GitHub
     uninstall, un <name>    Uninstall a skill
     list, ls                List installed skills
+    search, s <query>       Search for skills on GitHub
     auth                    Manage GitHub authentication
 
   Options:
@@ -33,6 +35,8 @@ const HELP_TEXT = `
     skillx install user/repo@v1.0.0
     skillx i user/repo --platform claude
     skillx list --verbose
+    skillx search blazor
+    skillx s "react testing" --platform claude
 `;
 
 async function main(): Promise<void> {
@@ -66,6 +70,10 @@ async function main(): Promise<void> {
 
     case "list":
       await listCommand(args);
+      break;
+
+    case "search":
+      await searchCommand(args);
       break;
 
     case "auth":
